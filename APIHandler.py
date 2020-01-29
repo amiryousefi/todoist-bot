@@ -7,10 +7,11 @@ import json
 
 class APIHandler:
 
-    def __init__(self, api_token):
+    def __init__(self, api_token, api_url):
         # initiate a todoist api instance
         self.api = TodoistAPI(api_token)
         self.api_token = api_token
+        self.api_url = api_url
 
     def get_project_list(self):
         self.api.sync()
@@ -19,7 +20,7 @@ class APIHandler:
 
     def get_tasks_by_project(self, project_id):
         tasks_list = requests.get(
-            "https://beta.todoist.com/API/v8/tasks",
+            "%s/tasks" % self.api_url,
             params={
                 "project_id": project_id
             },
@@ -36,7 +37,7 @@ class APIHandler:
 
     def get_all_tasks(self):
         tasks_list = requests.get(
-            "https://beta.todoist.com/API/v8/tasks",
+            "%s/tasks" % self.api_url,
             headers={
                 "Authorization": "Bearer %s" % self.api_token
             }).json()
@@ -59,7 +60,7 @@ class APIHandler:
 
     def create_task(self, task_content):
         result = requests.post(
-            "https://beta.todoist.com/API/v8/tasks",
+            "%s/tasks" % self.api_url,
             data=json.dumps({
                 "content": task_content,
             }),
