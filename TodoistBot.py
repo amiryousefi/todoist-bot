@@ -27,12 +27,14 @@ class TodoistBot:
         bot_token = config['telegram']['bot_token']
         # set Todoist API token
         api_token = config['todoist']['api_token']
+        # set Todoist API URL
+        api_url = config['todoist']['api_url']
 
         # initiate a Telegram updater instance
         self.updater = Updater(bot_token)
 
         # initiate a Todoist API handler
-        self.api = APIHandler(api_token)
+        self.api = APIHandler(api_token, api_url)
 
     @staticmethod
     def read_config():
