@@ -37,13 +37,6 @@ class TodoistBot:
         self.api = APIHandler(api_token, api_url)
 
     @staticmethod
-    def read_config():
-        # Reading Configs
-        config = configparser.ConfigParser()
-        config.read("config.ini")
-        return config
-
-    @staticmethod
     def task_button_markup(tasks):
         keyboard = []
         for task in tasks:
